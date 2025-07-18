@@ -34,5 +34,4 @@ public class Book implements Serializable {
     public String toString(){
         return String.format("Book{ID:%s, Title:'%s', Author:'%s', Available:%s}", id, title, author, (isAvailable ? "Yes" : "No"));
     }
-
 }
