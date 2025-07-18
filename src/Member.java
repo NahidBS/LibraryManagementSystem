@@ -2,54 +2,37 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class Member implements Serializable {
-    public static final long serialVersisonUID =1L;
-    public static int nextId = 1;
-
-    protected final int memberId;
-    protected String name;
-    protected String email;
-    protected List<Integer> borrowedBooks;
+public class Member implements Serializable {
+    private String id;
+    private String name;
+    private List<Book> borrowedBooks;
 
     //constructor
-    public Member(String name, String email){
-        this.memberId = nextId++;
+    public Member(String id, String name){
+        this.id = id;
         this.name = name;
-        this.email = email;
         this.borrowedBooks = new ArrayList<>();
     }
 
-    //Getters
-    public int getMemberId(){
-        return memberId;
+    //setter & getter
+    public String getId(){
+        return id;
     }
     public String getName(){
         return name;
     }
-    public String getEmail(){
-        return email;
-    }
-    public List<Integer> getBorrowedBooks(){
-        return new ArrayList<>(borrowedBooks);
+    public List<Book> getBorrowedBooks(){
+        return borrowedBooks;
     }
 
-    //abstract method - must be implemented in subclasses
-    public abstract int getMaxBooksAllowed();
-
-    //common functionality
-    public boolean canBorrowMoreBooks(){
-        return borrowedBooks.size() < getMaxBooksAllowed();
+    public void borrowBook(Book book){
+        borrowedBooks.add(book);
     }
-    public void borrowBook(int bookId){
-        if(!canBorrowMoreBooks()){
-            throw new IllegalStateException("Member has reached maximum book limit");
-        }
-        borrowedBooks.add(bookId);
+    public void returnBook(Book book){
+        borrowedBooks.remove(book);
     }
-
-    public void returnBook(int bookId){
-        borrowedBooks.remove(Integer.valueOf(BookId))
+    @Override
+    public String toString(){
+        return String.format("Member{ID:%s, Name:%s, Borrowed Books:%s", id, name, borrowedBooks.size());
     }
-
-
 }
