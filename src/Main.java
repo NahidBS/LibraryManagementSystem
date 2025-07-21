@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Library libray = new Library();
+        Library library = new Library();
         Scanner scanner = new Scanner(System.in);
 
         while(true){
@@ -22,11 +22,11 @@ public class Main {
 
             switch(choice){
                 case 1:
-                    addBook(Library, scanner);
+                    addBook(library, scanner);
                     break;
 
                 case 2:
-                    addMember(Library, scanner);
+                    addMember(library, scanner);
                     break;
                 case 3:
                     checkoutBook(library, scanner);
@@ -78,6 +78,47 @@ public class Main {
         Member member = new Member(id, name);
         library.addMember(member);
         System.out.println("Member added successfully!");
+    }
+
+    private static void checkoutBook(Library library, Scanner scanner) {
+        System.out.print("Enter Book ID: ");
+        String bookId = scanner.nextLine();
+        System.out.print("Enter Member ID: ");
+        String memberId = scanner.nextLine();
+
+        if (library.checkoutBook(bookId, memberId)) {
+            System.out.println("Book checked out successfully!");
+        } else {
+            System.out.println("Failed to checkout book. Please check IDs and availability.");
+        }
+    }
+
+    private static void returnBook(Library library, Scanner scanner) {
+        System.out.print("Enter Book ID: ");
+        String bookId = scanner.nextLine();
+        System.out.print("Enter Member ID: ");
+        String memberId = scanner.nextLine();
+
+        if (library.returnBook(bookId, memberId)) {
+            System.out.println("Book returned successfully!");
+        } else {
+            System.out.println("Failed to return book. Please check IDs.");
+        }
+    }
+
+    private static void viewAllBooks(Library library) {
+        System.out.println("\nAll Books:");
+        library.getAllBooks().forEach(System.out::println);
+    }
+
+    private static void viewAllMembers(Library library) {
+        System.out.println("\nAll Members:");
+        library.getAllMembers().forEach(System.out::println);
+    }
+
+    private static void viewAllTransactions(Library library) {
+        System.out.println("\nAll Transactions:");
+        library.getAllTransactions().forEach(System.out::println);
     }
 
 }

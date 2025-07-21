@@ -34,6 +34,10 @@ public class Transaction implements Serializable {
         return returnDate;
     }
 
+    public void completeTransaction() {
+        this.returnDate = LocalDate.now();
+    }
+
     @Override
     public String toString(){
         return "Transaction Id: " + transactionId+
